@@ -1,0 +1,26 @@
+{
+  "name": "agentic",
+  "description": "Altamis's Claude Code skills: SNAP BI + ASPI SIT/UAT integration.",
+  "owner": {
+    "name": "Altamis Atmaja",
+    "url": "https://github.com/altamisatmaja"
+  },
+  "plugins": [
+    {
+      "name": "sit-integrator",
+      "source": "./plugins/sit-integrator",
+      "description": "SIT/UAT for SNAP BI APIs (VA, QRIS, Bank Statement): signatures, test runner, response codes, ASPI devsite & Client Simulator, and UAT evidence.",
+      "version": "0.1.0",
+      "category": "development",
+      "keywords": [
+        "snap-bi",
+        "aspi",
+        "sit",
+        "uat",
+        "virtual-account",
+        "qris",
+        "payment"
+      ]
+    }
+  ]
+}

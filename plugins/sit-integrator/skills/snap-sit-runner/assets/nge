@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# SNAP SIT test runner wrapper.
+#
+#   ./nge run          run all scenarios (same as ./nge with no arguments)
+#   ./nge run 11.5     run one scenario
+#   ./nge 11.5         same, without 'run'
+#   ./nge 11.6 11.10   run several
+#   ./nge token        check get access token only
+#   ./nge log          show the latest run log
+#   ./nge list         list scenarios
+set -euo pipefail
+cd "$(dirname "$0")"
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "node not found in PATH" >&2
+  exit 127
+fi
+
+case "${1:-}" in
+  run)
+    shift
+    node run.js "$@"
+    ;;
+  log)
+    latest=$(ls -t logs/*.log 2>/dev/null | head -1) || true
+    if [ -z "${latest:-}" ]; then echo "No logs yet." >&2; exit 1; fi
+    echo "== $latest =="
+    cat "$latest"
+    ;;
+  list)
+    node -e '
+      const { scenarios } = require("./scenarios");
+      for (const s of scenarios) {
+        console.log(s.id.padEnd(7) + s.service.padEnd(9) + s.title + "  -> " + s.expect.code);
+      }
+    '
+    ;;
+  token)
+    node -e '
+      const { getAccessToken, saveLog } = require("./client");
+      getAccessToken().then(r => {
+        console.log("\nLog saved: " + saveLog("token"));
+        process.exit(r.accessToken ? 0 : 1);
+      });
+    '
+    ;;
+  -h|--help|help)
+    sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'
+    ;;
+  *)
+    node run.js "$@"
+    ;;
+esac

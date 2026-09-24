@@ -1,0 +1,18 @@
+{
+  "name": "sit-integrator",
+  "version": "0.1.0",
+  "description": "SIT/UAT for SNAP BI APIs: signatures, test runner, response codes, ASPI devsite & Client Simulator, and UAT evidence.",
+  "author": {
+    "name": "Altamis Atmaja",
+    "url": "https://github.com/altamisatmaja"
+  },
+  "repository": "https://github.com/altamisatmaja/agentic",
+  "keywords": [
+    "snap-bi",
+    "aspi",
+    "sit",
+    "uat",
+    "virtual-account",
+    "qris"
+  ]
+}
